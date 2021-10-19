@@ -8,6 +8,6 @@ class AboutUsController extends Controller
 {
     public function aboutus()
     {
-        echo'About-Us';
+        return view('site.aboutus');
     }
 }
