@@ -5,6 +5,7 @@ use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use Illuminate\Validation\Rules\In;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +21,28 @@ use Illuminate\Validation\Rules\In;
 Route::get('/', [MainController::class, 'main']);
 Route::get('/contact', [ContactController::class, 'contact']);
 Route::get('/about-us', [AboutUsController::class, 'aboutus']);
-Route::get(
-    '/contact/{nome}{categoria_id}',
-    function (
-        string $nome = 'Desconhecido',
-        int $categoria_id = 1
-    ) {
-        echo "estamos aqui: $nome - $categoria_id";
-    }
-)->where('categoria_id', '[0-9]+')->where('nome', '[A-Za-z]+');
+Route::get('/about-us', [AboutUsController::class, 'aboutus']);
+Route::get('/login', function () {
+    return 'login';
+});
+Route::get('/clientes', function () {
+    return 'clientes';
+});
+Route::get('/fornecedores', function () {
+    return 'fornecedores';
+});
+Route::get('/produtos', function () {
+    return 'produtos';
+});
+
+    Route::prefix('/app')->group(function () {
+        Route::get('/client', function () {
+            return'client';
+        })->name('app.clientes');
+        Route::get('/provider', function () {
+            return'provider';
+        })->name('app.fornecedores');
+        Route::get('/produt', function () {
+            return'produt';
+        })->name('app.produtos');
+    });
